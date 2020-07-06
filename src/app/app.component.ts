@@ -21,13 +21,24 @@ export class AppComponent implements AfterViewInit {
 
   public enableCarouselButtons = false;
 
-  private currentAvatarIndex = 1;
+  public currentAvatarIndex = 1;
+
+  private readonly inactiveProperties = {
+    filter: 'grayscale(100%)',
+    opacity: 0.3,
+    scale: 0.5
+  };
 
   @ViewChildren('carouselItem')
   private carouselItems : QueryList<ElementRef>;
 
   ngAfterViewInit(): void {
     Promise.resolve().then(() => this.enableCarouselButtons = true);
+    const nativeCarouselItems = this.getCarouselElements();
+    gsap.set([nativeCarouselItems[0], nativeCarouselItems[2]], this.inactiveProperties);
+    gsap.set(nativeCarouselItems[1], {
+      opacity: 1.0
+    });
   }
 
   left() {
@@ -41,13 +52,13 @@ export class AppComponent implements AfterViewInit {
   private spinCarousel(direction: Direction) {
     this.enableCarouselButtons = false;
 
-    const carouselItems = this.carouselItems.toArray().map(el => el.nativeElement);
+    const carouselNativeElements = this.getCarouselElements();
     const currentLeftAvatarIndex = this.getPreviousIndex(this.currentAvatarIndex);
     const currentRightAvatarIndex = this.getNextIndex(this.currentAvatarIndex);
 
-    const currentLeftAvatar = carouselItems[currentLeftAvatarIndex];
-    const currentCentralAvatar = carouselItems[this.currentAvatarIndex];
-    const currentRightAvatar = carouselItems[currentRightAvatarIndex];
+    const currentLeftAvatar = carouselNativeElements[currentLeftAvatarIndex];
+    const currentCentralAvatar = carouselNativeElements[this.currentAvatarIndex];
+    const currentRightAvatar = carouselNativeElements[currentRightAvatarIndex];
 
     let moveAcrossBackAvatar;
     let moveAcrossBackDirection;
@@ -81,15 +92,14 @@ export class AppComponent implements AfterViewInit {
       zIndex: 100
     }).to([moveToSideAvatar], {
       x: moveToSideDirection + '100%',
-      scale: 0.7,
+      ...this.inactiveProperties,
       ease: Sine.easeInOut,
-      filter: 'grayscale(100%)',
       duration: 1
     }).to(moveAcrossBackAvatar, {
-      scale: 0.7,
       x: moveAcrossBackDirection + '200%',
       duration: 1,
-      delay: -1
+      delay: -1,
+      ease: Sine.easeInOut,
     }).to(moveToCenterAvatar, {
       x: moveToCenterDirection + '100%',
       scale: 1,
@@ -111,5 +121,9 @@ export class AppComponent implements AfterViewInit {
 
   private getNextIndex(index: number): number {
     return ((index + 1) % this.carouselItems.length);
+  }
+
+  private getCarouselElements(): any[] {
+    return this.carouselItems.toArray().map(el => el.nativeElement)
   }
 }

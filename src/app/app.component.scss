@@ -1,6 +1,7 @@
 .page {
   align-items: center;
   display: flex;
+  flex-direction: column;
   height: 100%;
   justify-content: center;
 }
@@ -13,18 +14,15 @@
 
 .carousel {
   display: flex;
-  height: 50%;
+  height: 90%;
   justify-content: center;
-  width: 50%;
+  width: 90%;
 }
 
 .avatar-img {
   width: 100%;
 }
 
-.avatar--inactive {
-  filter: grayscale(100%);
-  opacity: 0.3;
-  transform: scale(0.7);
-  z-index: 15;
+.current-avatar {
+  margin-top: 2rem;
 }
