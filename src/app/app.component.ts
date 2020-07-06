@@ -36,9 +36,6 @@ export class AppComponent implements AfterViewInit {
     Promise.resolve().then(() => this.enableCarouselButtons = true);
     const nativeCarouselItems = this.getCarouselElements();
     gsap.set([nativeCarouselItems[0], nativeCarouselItems[2]], this.inactiveProperties);
-    gsap.set(nativeCarouselItems[1], {
-      opacity: 1.0
-    });
   }
 
   left() {
