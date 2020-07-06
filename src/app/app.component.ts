@@ -25,9 +25,12 @@ export class AppComponent implements AfterViewInit {
 
   private readonly inactiveProperties = {
     filter: 'grayscale(100%)',
-    opacity: 0.3,
     scale: 0.5
   };
+
+  private readonly opacityProperties = {
+    opacity: 0.3
+  }
 
   @ViewChildren('carouselItem')
   private carouselItems : QueryList<ElementRef>;
@@ -35,7 +38,13 @@ export class AppComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     Promise.resolve().then(() => this.enableCarouselButtons = true);
     const nativeCarouselItems = this.getCarouselElements();
-    gsap.set([nativeCarouselItems[0], nativeCarouselItems[2]], this.inactiveProperties);
+    gsap.set([nativeCarouselItems[1]], {
+      x: 0
+    });
+    gsap.set([nativeCarouselItems[0],
+      nativeCarouselItems[2]], this.inactiveProperties);
+    gsap.set([nativeCarouselItems[0].firstChild,
+      nativeCarouselItems[2].firstChild], this.opacityProperties);
   }
 
   left() {
@@ -88,10 +97,14 @@ export class AppComponent implements AfterViewInit {
     }).set([moveToCenterAvatar, moveToSideAvatar], {
       zIndex: 100
     }).to([moveToSideAvatar], {
-      x: moveToSideDirection + '100%',
       ...this.inactiveProperties,
+      x: moveToSideDirection + '100%',
       ease: Sine.easeInOut,
       duration: 1
+    }).to([moveToSideAvatar.firstChild], {
+      ...this.opacityProperties,
+      duration: 1,
+      delay: -1
     }).to(moveAcrossBackAvatar, {
       x: moveAcrossBackDirection + '200%',
       duration: 1,
@@ -104,7 +117,9 @@ export class AppComponent implements AfterViewInit {
       ease: Sine.easeInOut,
       duration: 1,
       delay: -1,
+    }).to(moveToCenterAvatar.firstChild, {
       opacity: 1,
+      delay: -1
     }).eventCallback('onComplete', () => {
       this.enableCarouselButtons = true;
       this.currentAvatarIndex = nextAvatarIndex;
