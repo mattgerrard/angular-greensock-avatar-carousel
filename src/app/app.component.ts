@@ -80,18 +80,18 @@ export class AppComponent implements AfterViewInit {
     }).set([moveToCenterAvatar, moveToSideAvatar], {
       zIndex: 100
     }).to([moveToSideAvatar], {
-      x: moveToSideDirection + moveToSideAvatar.offsetWidth,
+      x: moveToSideDirection + '100%',
       scale: 0.7,
       ease: Sine.easeInOut,
       filter: 'grayscale(100%)',
       duration: 1
     }).to(moveAcrossBackAvatar, {
       scale: 0.7,
-      x: moveAcrossBackDirection + moveAcrossBackAvatar.offsetWidth * 2,
+      x: moveAcrossBackDirection + '200%',
       duration: 1,
       delay: -1
     }).to(moveToCenterAvatar, {
-      x: moveToCenterDirection + moveToCenterAvatar.offsetWidth,
+      x: moveToCenterDirection + '100%',
       scale: 1,
       filter: 'none',
       ease: Sine.easeInOut,
