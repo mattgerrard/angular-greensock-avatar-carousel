@@ -1,7 +1,7 @@
-# Carousel
+##Preview
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.0.
+![](https://raw.githubusercontent.com/matthewgerrard/angular-greensock-avatar-carousel/master/preview.gif)
 
-## Development server
+## Description
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+A character carousel built with [Angular 10.0.0](https://angular.io) and [greensock 3.3.4](https://greensock.com).
