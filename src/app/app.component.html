@@ -1,0 +1,17 @@
+<div class="page">
+  <div class="carousel-and-buttons">
+    <button [disabled]="!enableCarouselButtons" (click)="left()">&lt;</button>
+    <div class="carousel">
+      <div #carouselItem class="avatar avatar--inactive">
+        <img class="avatar-img" src="./assets/avatars/0.png"/>
+      </div>
+      <div #carouselItem class="avatar">
+        <img class="avatar-img" src="./assets/avatars/1.png"/>
+      </div>
+      <div #carouselItem class="avatar avatar--inactive">
+        <img class="avatar-img" src="./assets/avatars/2.png"/>
+      </div>
+    </div>
+    <button [disabled]="!enableCarouselButtons" (click)="right()">&gt;</button>
+  </div>
+</div>
