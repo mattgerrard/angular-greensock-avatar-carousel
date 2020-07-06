@@ -1,4 +1,4 @@
-##Preview
+## Preview
 
 ![](https://raw.githubusercontent.com/matthewgerrard/angular-greensock-avatar-carousel/master/preview.gif)
 
