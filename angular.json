@@ -18,7 +18,6 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "docs",
-            "baseHref": "https://matthewgerrard.github.io/angular-greensock-avatar-carousel/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -48,6 +47,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
+              "baseHref": "https://matthewgerrard.github.io/angular-greensock-avatar-carousel/",
               "budgets": [
                 {
                   "type": "initial",
