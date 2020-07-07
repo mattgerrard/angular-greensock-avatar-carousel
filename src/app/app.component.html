@@ -1,21 +1,13 @@
 <div class="page">
-  <div class="carousel-and-buttons">
-    <button [disabled]="!enableCarouselButtons" (click)="left()">&lt;</button>
-    <div class="carousel">
-      <div #carouselItem>
-        <img class="avatar-img" src="./assets/avatars/0.png"/>
-        <img class="avatar-img-mask" src="./assets/avatars/0-mask.png"/>
-      </div>
-      <div #carouselItem>
-        <img class="avatar-img" src="./assets/avatars/1.png"/>
-        <img class="avatar-img-mask" src="./assets/avatars/1-mask.png"/>
-      </div>
-      <div #carouselItem>
-        <img class="avatar-img" src="./assets/avatars/2.png"/>
-        <img class="avatar-img-mask" src="./assets/avatars/2-mask.png"/>
-      </div>
+  <div class="carousel">
+    <div>
+      <img class="avatar-img" src="./assets/avatars/0.png"/>
     </div>
-    <button [disabled]="!enableCarouselButtons" (click)="right()">&gt;</button>
+    <div>
+      <img class="avatar-img" src="./assets/avatars/1.png"/>
+    </div>
+    <div>
+      <img class="avatar-img" src="./assets/avatars/2.png"/>
+    </div>
   </div>
-  <div class="current-avatar">Current avatar: {{currentAvatarIndex}}</div>
 </div>
