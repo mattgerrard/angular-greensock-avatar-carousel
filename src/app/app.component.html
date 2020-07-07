@@ -1,13 +1,16 @@
 <div class="page">
-  <div class="carousel">
-    <div>
-      <img class="avatar-img" src="./assets/avatars/0.png"/>
+  <div class="carousel-and-buttons">
+    <div class="carousel">
+      <div #carouselItem>
+        <img class="avatar-img" src="./assets/avatars/0.png"/>
+      </div>
+      <div #carouselItem>
+        <img class="avatar-img" src="./assets/avatars/1.png"/>
+      </div>
+      <div #carouselItem>
+        <img class="avatar-img" src="./assets/avatars/2.png"/>
+      </div>
     </div>
-    <div>
-      <img class="avatar-img" src="./assets/avatars/1.png"/>
-    </div>
-    <div>
-      <img class="avatar-img" src="./assets/avatars/2.png"/>
-    </div>
+    <button (click)="right()">&gt;</button>
   </div>
 </div>
