@@ -94,8 +94,10 @@ export class AppComponent implements AfterViewInit {
     const timeline = gsap.timeline({ repeat: 0});
     timeline.set([moveAcrossBackAvatar], {
       zIndex: 0
-    }).set([moveToCenterAvatar, moveToSideAvatar], {
+    }).set([moveToCenterAvatar], {
       zIndex: 100
+    }).set([moveToSideAvatar], {
+      zIndex: 75
     }).to([moveToSideAvatar], {
       ...this.inactiveProperties,
       x: moveToSideDirection + '100%',
