@@ -1,6 +1,11 @@
 import {Component, ElementRef, QueryList, ViewChildren} from '@angular/core';
 import {gsap, Sine} from 'gsap';
 
+enum Direction {
+  Left = '-=',
+  Right = '+='
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,34 +15,73 @@ export class AppComponent {
 
   public currentAvatarIndex = 1;
 
+  public enableCarouselButtons = true;
+
   @ViewChildren('carouselItem')
   private carouselItems : QueryList<ElementRef>;
 
   public right(): void {
-    const nextIndex = this.getPreviousIndex(this.currentAvatarIndex);
+    this.slide(Direction.Right);
+  }
 
-    const carouselNativeElements = this.carouselItems.toArray().map(el => el.nativeElement);
-    const moveToCenterElement = carouselNativeElements[nextIndex];
-    const moveToRightElement = carouselNativeElements[this.currentAvatarIndex];
-    const moveToLeftElement = carouselNativeElements[this.getNextIndex(this.currentAvatarIndex)];
+  public left(): void {
+    this.slide(Direction.Right);
+  }
+
+  private slide(direction: Direction): void {
+    this.enableCarouselButtons = false;
+
+    const carouselNativeElements = this.carouselItems.toArray().map(el => el.nativeElement)
+    const currentLeftAvatarIndex = this.getPreviousIndex(this.currentAvatarIndex);
+    const currentRightAvatarIndex = this.getNextIndex(this.currentAvatarIndex);
+
+    const currentLeftAvatar = carouselNativeElements[currentLeftAvatarIndex];
+    const currentCentralAvatar = carouselNativeElements[this.currentAvatarIndex];
+    const currentRightAvatar = carouselNativeElements[currentRightAvatarIndex];
+
+    let moveAcrossBackAvatar;
+    let moveAcrossBackDirection;
+    let moveToSideDirection;
+    let moveToCenterAvatar;
+    let moveToCenterDirection;
+    const moveToSideAvatar = currentCentralAvatar;
+
+    let nextAvatarIndex;
+
+    if (direction === Direction.Right) {
+      moveAcrossBackAvatar = currentLeftAvatar;
+      moveAcrossBackDirection = Direction.Right;
+      moveToSideDirection = Direction.Left;
+      moveToCenterAvatar = currentRightAvatar;
+      moveToCenterDirection = Direction.Left;
+      nextAvatarIndex = currentRightAvatarIndex;
+    } else {
+      moveAcrossBackAvatar = currentRightAvatar;
+      moveAcrossBackDirection = Direction.Left;
+      moveToSideDirection = Direction.Right;
+      moveToCenterAvatar = currentLeftAvatar;
+      moveToCenterDirection = Direction.Right;
+      nextAvatarIndex = currentLeftAvatarIndex;
+    }
 
     gsap.timeline({ repeat: 0})
-      .to([moveToRightElement], {
+      .to([moveToSideAvatar], {
         duration: 1,
         ease: Sine.easeInOut,
-        x: '+=100%'
-      }).to([moveToLeftElement], {
+        x: moveToSideDirection + '100%'
+      }).to([moveAcrossBackAvatar], {
         delay: -1,
         duration: 1,
         ease: Sine.easeInOut,
-        x: '-=200%'
-      }).to([moveToCenterElement], {
+        x: moveAcrossBackDirection + '200%'
+      }).to([moveToCenterAvatar], {
         delay: -1,
         duration: 1,
         ease: Sine.easeInOut,
-        x: '+=100%'
+        x: moveToCenterDirection + '100%'
       }).eventCallback('onComplete', () => {
-        this.currentAvatarIndex = nextIndex;
+        this.enableCarouselButtons = true;
+        this.currentAvatarIndex = nextAvatarIndex;
       });
   }
 
